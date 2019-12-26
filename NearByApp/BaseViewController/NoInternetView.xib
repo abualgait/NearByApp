@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Rubik-Regular.ttf">
+            <string>Rubik-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NoInternetView" customModule="Housing_ERP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lMG-7c-asc">
+                    <rect key="frame" x="10" y="280.5" width="355" height="105"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNO-cd-Kfr">
+                            <rect key="frame" x="0.0" y="15" width="355" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="ccz-nh-eP9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cgt-pX-uk7">
+                            <rect key="frame" x="102" y="59" width="150" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="EHo-Km-waP"/>
+                                <constraint firstAttribute="height" constant="36" id="GIj-UJ-AtD"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="15"/>
+                            <state key="normal" title="Retry">
+                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="bNO-cd-Kfr" firstAttribute="leading" secondItem="lMG-7c-asc" secondAttribute="leading" id="112-yx-0Yw"/>
+                        <constraint firstAttribute="trailing" secondItem="bNO-cd-Kfr" secondAttribute="trailing" id="GTD-VH-9ke"/>
+                        <constraint firstItem="bNO-cd-Kfr" firstAttribute="top" secondItem="lMG-7c-asc" secondAttribute="top" constant="15" id="cab-tF-9mb"/>
+                        <constraint firstItem="cgt-pX-uk7" firstAttribute="centerX" secondItem="lMG-7c-asc" secondAttribute="centerX" id="dqn-ZK-ren"/>
+                        <constraint firstItem="cgt-pX-uk7" firstAttribute="top" secondItem="bNO-cd-Kfr" secondAttribute="bottom" constant="24" id="hvL-ep-woT"/>
+                        <constraint firstAttribute="height" constant="105" id="ps3-P7-GNH"/>
+                    </constraints>
+                </view>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" image="no_internet" translatesAutoresizingMaskIntoConstraints="NO" id="Lak-19-yN0">
+                    <rect key="frame" x="151" y="207" width="73" height="73"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="73" id="R1A-sl-hFQ"/>
+                        <constraint firstAttribute="width" constant="73" id="syg-bj-334"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="lMG-7c-asc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="5ng-Av-iX5"/>
+                <constraint firstItem="Lak-19-yN0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Eth-0j-kka"/>
+                <constraint firstItem="lMG-7c-asc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="N4Y-KK-gMU"/>
+                <constraint firstItem="lMG-7c-asc" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="hkx-5x-iex"/>
+                <constraint firstAttribute="trailing" secondItem="lMG-7c-asc" secondAttribute="trailing" constant="10" id="pRS-k0-Aqd"/>
+                <constraint firstItem="lMG-7c-asc" firstAttribute="top" secondItem="Lak-19-yN0" secondAttribute="bottom" constant="0.5" id="sV7-RO-0XG"/>
+            </constraints>
+            <connections>
+                <outlet property="btnRetry" destination="cgt-pX-uk7" id="qnr-hI-DC2"/>
+                <outlet property="imgNoInternet" destination="Lak-19-yN0" id="jje-A6-FB9"/>
+                <outlet property="lblMessage" destination="bNO-cd-Kfr" id="d5W-Yj-Qoj"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="no_internet" width="73" height="73"/>
+    </resources>
+</document>
