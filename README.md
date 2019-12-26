@@ -1,4 +1,4 @@
-# NearBy 
+# NearBy(iOS) 
 # An iOS app for displaying realtime nearby places around you based on <href>https://foursquare.com/</href> API
  <p>Project Contains the following :</p> 
  <ul class="contains-task-list">
