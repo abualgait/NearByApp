@@ -5,5 +5,5 @@
  <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox">Swift </li>
  <li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> Alamofire.</li>
  
- <img src="https://github.com/abualgait/NearByApp/blob/master/places%20nearby.png" width="200" height="400" >
+ <img src="https://github.com/abualgait/NearByApp/blob/master/ios_places.png" width="200" height="400" >
  
