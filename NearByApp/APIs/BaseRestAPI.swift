@@ -19,8 +19,6 @@ class BaseRestAPI: BaseAPI {
         super.GETAction(completion: completion)
     }
     
-   
-    
     
     func setupPathComponents(_ action: APIRestAction,id:String = "") {
         var subPath: NSArray?

@@ -6,6 +6,7 @@ import Masonry
 import SwiftLocation
 import CoreLocation
 import RxSwift
+
 enum MODE : String {
     case SINGLEUPDATE
     case REALTIME
@@ -114,10 +115,16 @@ class HomeViewController : BaseViewController,UITableViewDelegate,UITableViewDat
                     for (index,venue) in self.results.response.venues!.enumerated() {
                         self.getPhotoOFVenue(id: venue.id,index: index)
                     }
+                }else{
+                    self.showEmptyDataLabelWithMsg(message: "No Data Found")
+                    self.tableView.isHidden = true
+                    
                 }
                 
             }, failure: { (error) in
+                   self.showlblServerErrorLabelWithMsg(message: "Something went wrong")
                    self.stopLoadingActivity()
+                   self.tableView.isHidden = true
             })
         }else{
             self.showOfflineView(true, error:  "No internet connection")
@@ -135,18 +142,24 @@ class HomeViewController : BaseViewController,UITableViewDelegate,UITableViewDat
         
             if (self.photosResults.response.photos.items?.count)! > 0 {
                 var photo = self.photosResults.response.photos.items?[0]
-                let imageUrl1 = photo!.prefix + photo!.width
-                let x = "x"
-                let imageUrl2 =   photo!.height + photo!.suffix
-                let myImg = imageUrl1 + x + imageUrl2
+                let myImg = self.construcImgUrl(item: photo)
                 self.results.response.venues?[index].image = myImg
-                 self.tableView.reloadData()
+                self.tableView.reloadData()
                 
             }
             
         }, failure: { (error) in
+            self.showlblServerErrorLabelWithMsg(message: "Something went wrong")
             self.stopLoadingActivity()
+            self.tableView.isHidden = true
         })
+    }
+    func construcImgUrl(item:ItemPOJO?) -> String{
+        let imageUrl1 = item!.prefix + item!.width
+        let x = "x"
+        let imageUrl2 =   item!.height + item!.suffix
+        let myImg = imageUrl1 + x + imageUrl2
+        return myImg
     }
    // MARK:- clickRetry method
     @objc func clickRetry(_ sender: Any)

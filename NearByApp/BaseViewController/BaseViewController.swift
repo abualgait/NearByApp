@@ -8,6 +8,7 @@ class BaseViewController: UIViewController {
     var lblLoading: UILabel?
     var utility = Utility()
     var lblNoRecord : UILabel!
+    var lblServerError: UILabel!
     var vwOffline: NoInternetView?
 
     
@@ -17,6 +18,7 @@ class BaseViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.initLoaderActivity()
         self.initEmptyDataLabel()
+        self.initlblServerErrorLabel()
         self.initOfflineView()
         self.showOfflineView(false, error: "No Connection available")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -79,10 +81,8 @@ class BaseViewController: UIViewController {
         }
     }
     
- 
-    
+  
     // MARK:- EmptyLabel SetUp
-    
     func initEmptyDataLabelWithFrame(frame: CGRect)
     {
 
@@ -98,16 +98,44 @@ class BaseViewController: UIViewController {
         self.initEmptyDataLabelWithFrame(frame: CGRect(x: CGFloat(20), y: SCREEN_SIZE.height / 2.0 - 100, width: CGFloat(SCREEN_SIZE.width-40), height: 90))
     }
 
-//    func showEmptyDataLabelWithMsg(message: String) {
-//        self.lblNoRecord.text = message
-//        self.lblNoRecord.isHidden = false
-//        self.view.bringSubview(toFront: self.lblNoRecord)
-//    }
-//    func hideEmptyDataLabel()
-//    {
-//        self.lblNoRecord.isHidden = true
-//
-//    }
+    func showEmptyDataLabelWithMsg(message: String) {
+        self.lblNoRecord.text = message
+        self.lblNoRecord.isHidden = false
+        self.view.bringSubviewToFront(self.lblNoRecord)
+    }
+    func hideEmptyDataLabel()
+    {
+        self.lblNoRecord.isHidden = true
+
+    }
+    
+    
+    // MARK:- Server Error SetUp
+    func initServerErrorLabelWithFrame(frame: CGRect)
+    {
+        
+        self.lblServerError  = UILabel(frame: frame)
+        self.lblServerError.textAlignment = .center
+        self.lblServerError.numberOfLines = 0
+        
+        self.view!.addSubview(self.lblServerError)
+        self.lblServerError.isHidden = true
+    }
+    
+    func initlblServerErrorLabel() {
+        self.initServerErrorLabelWithFrame(frame: CGRect(x: CGFloat(20), y: SCREEN_SIZE.height / 2.0 - 100, width: CGFloat(SCREEN_SIZE.width-40), height: 90))
+    }
+    
+    func showlblServerErrorLabelWithMsg(message: String) {
+        self.lblServerError.text = message
+        self.lblServerError.isHidden = false
+        self.view.bringSubviewToFront(self.lblServerError)
+    }
+    func hideServerErrorLabel()
+    {
+        self.lblServerError.isHidden = true
+        
+    }
     func initOfflineView() {
         initOfflineView(withFrame: CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(SCREEN_SIZE.width), height: CGFloat(SCREEN_SIZE.height - 60)))
     }

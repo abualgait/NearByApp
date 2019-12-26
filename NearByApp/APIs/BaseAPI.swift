@@ -34,13 +34,10 @@ class BaseAPI: NSObject {
     {
         let urlString = self.urlString();
 
-        // print("HEADERS \(headers)")
+       
         print("GET \(urlString)")
         print("PARAMETERS \(parameters)")
-        
-//        try URLEncoding.default.encode(urlRequest, with: parameters)
-//                    break
-        
+ 
         Alamofire.request(urlString, method: HTTPMethod.get, parameters: (self.parameters as NSDictionary) as? Parameters, encoding: URLEncoding.default, headers: nil).validate().responseJSON { (response:DataResponse<Any>) in
             switch (response.result) {
             case .success:
