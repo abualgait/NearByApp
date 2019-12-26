@@ -29,19 +29,7 @@ class BaseAPI: NSObject {
         }
     }
     
-    func RxGETAction(completion: @escaping (Observable<Any>) -> Void)
-    {
-        let urlString = self.urlString();
-        print("RxGET \(urlString)")
-        print("RxPARAMETERS \(parameters)")
-        let observable = RxAlamofire.json( HTTPMethod.get,
-                                           urlString,
-                                           parameters: (self.parameters as NSDictionary) as? Parameters,
-                                           encoding: URLEncoding.default, headers: nil)
-        completion(observable)
-      
-       
-    }
+    
     func GETAction(completion: @escaping (DataResponse<Any>) -> Void)
     {
         let urlString = self.urlString();

@@ -5,7 +5,7 @@ import UIKit
 import Masonry
 import SwiftLocation
 import CoreLocation
-
+import RxSwift
 enum MODE : String {
     case SINGLEUPDATE
     case REALTIME
@@ -18,6 +18,7 @@ class HomeViewController : BaseViewController,UITableViewDelegate,UITableViewDat
     var delegate:SimpleItemClickDelegate?
     @IBOutlet weak var tableView: UITableView!
     var results = NearByPlacesResponse()
+    var photosResults = PhotosResponse()
     var strLatitude = ""
     var strLongitude = ""
     
@@ -29,8 +30,6 @@ class HomeViewController : BaseViewController,UITableViewDelegate,UITableViewDat
         tableView.dataSource=self
         tableView.delegate=self
         loadInitialSettings()
-        
-        //self.rxGetVenues(lat: 30.332331,lng: -122.031219)
         self.getVenues(lat: 37.332331,lng: -122.031219)
     }
     func setAppearance(){
@@ -97,61 +96,7 @@ class HomeViewController : BaseViewController,UITableViewDelegate,UITableViewDat
     }
     
     
-    func rxGetVenues(lat:Double,lng:Double){
-        strLatitude = String(format : "%f",lat)
-        strLongitude = String(format : "%f",lng)
-        if try! self.isInternetAvailable() == true {
-            self.startLoadingActivity()
-            self.showOfflineView(false, error: "")
-            
-            NearByClientAPI().RxgetPlaceslistAPI(strLat: strLatitude, strLng: strLongitude, success: { (data) in
-               data.subscribe(onNext: {(dic) in
-                
-                do {
-                    let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
-                    // here "jsonData" is the dictionary encoded in JSON data
-                    
-                    let decoded = try JSONSerialization.jsonObject(with: jsonData, options: [])
-                    // here "decoded" is of type `Any`, decoded from JSON data
-                    
-                    // you can now cast it with the right type
-                    if let dictFromJSON = decoded as? NearByPlacesResponse {
-                        // use dictFromJSON
-                        self.results = dictFromJSON
-                        print("Rx" + self.results.meta.requestId!)
-                    }
-                } catch {
-                    print(error.localizedDescription)
-                }
-                
-                
-            
-                if (self.results.response.venues?.count)! > 0 {
-                    self.stopLoadingActivity()
-                    self.tableView.reloadData()
-                }
-                
-               }, onError:{(Error) in
-             
-               }, onCompleted: {
-                
-               }, onDisposed: {
-                
-               })
-                
-            }, failure: { (error) in
-                self.stopLoadingActivity()
-            })
-            
-            
-        }else{
-            self.showOfflineView(true, error:  "No internet connection")
-            self.tableView.isHidden = true
-            self.vwOffline?.btnRetry?.addTarget(self, action: #selector(self.clickRetry), for: .touchUpInside)
-        }
-        
-        
-    }
+  
     
     func getVenues(lat:Double,lng:Double){
           strLatitude = String(format : "%f",lat)
@@ -166,6 +111,9 @@ class HomeViewController : BaseViewController,UITableViewDelegate,UITableViewDat
                 if (self.results.response.venues?.count)! > 0 {
                     self.stopLoadingActivity()
                     self.tableView.reloadData()
+                    for (index,venue) in self.results.response.venues!.enumerated() {
+                        self.getPhotoOFVenue(id: venue.id,index: index)
+                    }
                 }
                 
             }, failure: { (error) in
@@ -179,7 +127,28 @@ class HomeViewController : BaseViewController,UITableViewDelegate,UITableViewDat
 
         
     }
-    // MARK:- clickRetry method
+    
+    func getPhotoOFVenue(id:String,index:Int){
+        NearByClientAPI().getPhotosAPI( id:id, success: { (response) in
+            self.photosResults = PhotosResponse()
+            self.photosResults = response
+        
+            if (self.photosResults.response.photos.items?.count)! > 0 {
+                var photo = self.photosResults.response.photos.items?[0]
+                let imageUrl1 = photo!.prefix + photo!.width
+                let x = "x"
+                let imageUrl2 =   photo!.height + photo!.suffix
+                let myImg = imageUrl1 + x + imageUrl2
+                self.results.response.venues?[index].image = myImg
+                 self.tableView.reloadData()
+                
+            }
+            
+        }, failure: { (error) in
+            self.stopLoadingActivity()
+        })
+    }
+   // MARK:- clickRetry method
     @objc func clickRetry(_ sender: Any)
     {
         

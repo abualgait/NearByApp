@@ -15,6 +15,6 @@ class VenueCell: UITableViewCell {
     open func configureVenueCell(venue:Venue){
         myVenueName.text = venue.name
         myVenueAddress.text = venue.location?.cc
-        //myImage.getImageWithURL(venue.image)
+        myImage.getImageWithURL(venue.image)
     }
 }

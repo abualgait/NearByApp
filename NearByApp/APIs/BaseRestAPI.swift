@@ -19,10 +19,7 @@ class BaseRestAPI: BaseAPI {
         super.GETAction(completion: completion)
     }
     
-    func RxGETAction(action : APIRestAction,id:String = "", completion: @escaping (Observable<Any>) ->Void) {
-        self.setupPathComponents(action,id: id)
-        super.RxGETAction(completion: completion)
-    }
+   
     
     
     func setupPathComponents(_ action: APIRestAction,id:String = "") {
